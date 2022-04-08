@@ -10,18 +10,18 @@ PR_Type = Union[Tuple[NUMBER], List[NUMBER], np.ndarray]
 def plot_auroc(
     title: str,
     data: List[Tuple[str, PR_Type, PR_Type, float]],
-    xrange: Optional[Tuple[NUMBER, NUMBER]] = None,
+    xrange: Optional[List[NUMBER]] = None,
     xscale: Optional[str] = "linear",
-    yrange: Optional[Tuple[NUMBER, NUMBER]] = None,
+    yrange: Optional[List[NUMBER]] = None,
     yscale: Optional[str] = "linear"
 ) -> None:
     """
     Plot multiple ROC curves and calculate corresponding AUCs.
     :param title: Title of the plot
     :param data: Tuple of (model name, FPR, TPR, AUC score) values, model name is used as a legend
-    :param xrange: Range of x-axis
+    :param xrange: Limit the range of x-axis: [left, right]
     :param xscale: Scale x-axis: "linear", "log"
-    :param yrange: Range of y-axis
+    :param yrange: Limit the range of y-axis: [left, right]
     :param yscale: Scale y-axis: "linear", "log"
     :return: None
     """
@@ -55,5 +55,5 @@ if __name__ == "__main__":
     metrics.append(("VGG", x, np.sin(x) + 2 * x + np.random.randn(50), 0.6))
     metrics.append(("ResNet", x, np.sin(x) + 3 * x + np.random.randn(50), 0.7))
     metrics.append(("VIT", x, np.sin(x) + 4 + np.random.randn(50), 0.8))
-    plot_auroc("ROC Curve on LFW Test Set", metrics)
+    plot_auroc("ROC Curve on LFW Test Set", metrics, xrange=[0, 4])
 
